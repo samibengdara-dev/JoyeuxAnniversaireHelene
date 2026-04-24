@@ -6,6 +6,7 @@
   <title>La Chasse au Cadeau d'Hélène 🎁</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
+    html { scroll-behavior: auto !important; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg:        #0D1117;
@@ -369,6 +370,11 @@ souviens-toi du code qu'on t'a confié…</p>
 
 <script>
   window.scrollTo(0, 0);
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
+window.addEventListener('load', () => {
+  window.scrollTo({ top: 0, behavior: 'instant' });
+});
   const questions = [
     { icon:"💼", number:"Énigme 1 / 5", riddle:"Avant de rejoindre les rangs de Slalom,\nchaque expérience forge ton parcours avec aplomb.\nCombien d'entreprises ont eu la chance de t'accueillir au Canada,\navant que cette aventure ne vienne s'épanouir ?", hint:"💡 Indice : Pense à ton CV avant Slalom au Canada.", answers:["2","deux"], colors:["#4FC3C8","#F0B429"], successMimic:"🥳", successTitle:"Incroyable !", successMsg:"Wooow...Tu te souviens bien de ton parcours ! Direction l'énigme suivante…" },
     { icon:"☕", number:"Énigme 2 / 5", riddle:"Une tasse de céramique, faite avec amour et soin,\ncréée par une jeune artiste aux doigts pleins d'adresse et d'entrain.\nQuel est l'âge de cette créatrice si talentueuse,\nqui a peint ce mug de ses mains merveilleuses ?", hint:"💡 Indice : Pense à l`âge de la jeune fille et non celui de l`adulte qui a peint la tasse en céramique.", answers:["8","huit"], colors:["#F0B429","#7F77DD"], successMimic:"😄", successTitle:"Excellent !", successMsg:"Une mémoire affûtée ! Tu avances bien dans ta quête…" },
