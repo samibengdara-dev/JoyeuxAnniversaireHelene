@@ -6,20 +6,6 @@
   <title>La Chasse au Cadeau d'Hélène 🎁</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    .welcome-text {
-  font-family: 'Space Grotesk', sans-serif;
-  font-style: italic;
-  font-size: 0.95rem;
-  line-height: 1.85;
-  color: #C8D8E8;
-  text-align: center;
-  margin-bottom: 2rem;
-  padding: 1.2rem 1.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  border-left: 2px solid var(--teal);
-}
     #top { position: absolute; top: 0; left: 0; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -338,17 +324,6 @@
     <p>Résous chaque énigme pour découvrir ton cadeau d'anniversaire</p>
   </div>
 
-  <div class="welcome-text">
-  <p>Hélène, aujourd'hui c'est ton grand jour,<br>
-  et pour fêter ça, j'ai préparé un peu de velours.<br>
-  Quelques énigmes t'attendent, mystérieuses et malicieuses,<br>
-  chacune te rapproche d'une surprise précieuse.<br><br>
-  Lis bien chaque indice, réfléchis, cherche, creuse.<br>
-  La réponse est cachée dans ta mémoire silencieuse.<br>
-  Alors prends une grande inspiration, souris,<br>
-  et que la chasse au cadeau commence… c'est parti ! 🎁</p>
-</div>
-
   <div class="progress-bar-wrap">
     <div class="progress-bar-fill" id="progressFill" style="width: 0%"></div>
   </div>
@@ -410,7 +385,7 @@ souviens-toi du code qu'on t'a confié…</p>
     { icon:"🏎️", number:"Énigme 4 / 5", riddle:"À travers les dunes et les pistes du Maroc lointain,\nun rallye t'attendait sur un chemin incertain.\nQuelle voiture fidèle et courageuse t'a accompagné,\ndans cette course épique que tu as su dompter ?", hint:"💡 Indice : Une voiture mythique et robuste. Son nom est aussi son numéro.", answers:["4l","4l renault","renault 4l","renault 4","r4","la 4l","4 l"], colors:["#4FC3C8","#F06060"], successMimic:"🎊", successTitle:"Magnifique !", successMsg:"La légendaire 4L ! Et maintenant… l'énigme finale !" }
   ];
 
-  let current = 0, isSuccess = false;
+  let current = -1, isSuccess = false;
   const $ = id => document.getElementById(id);
   const confettiColors = ['#4FC3C8','#F0B429','#7F77DD','#F06060','#ffffff'];
 
@@ -428,6 +403,33 @@ souviens-toi du code qu'on t'a confié…</p>
   }
 
   function normalize(s) { return s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+
+  function showWelcome() {
+  $('questionNumber').textContent = '🎂 Joyeux Anniversaire !';
+  $('riddleIcon').textContent = '🎁';
+  $('riddleText').textContent = "Hélène, aujourd'hui c'est ton grand jour,\net pour fêter ça, on a préparé un peu de velours.\nCinq énigmes t'attendent, mystérieuses et malicieuses,\nchacune te rapproche d'une surprise précieuse.\n\nLis bien chaque indice, réfléchis, cherche, creuse —\nla réponse est cachée dans ta mémoire silencieuse.\nAlors prends une grande inspiration, souris,\net que la chasse au cadeau commence… c'est parti ! 🎁";
+  $('hintText').style.display = 'none';
+  $('answerWrap').style.display = 'none';
+  $('errorMsg').style.display = 'none';
+  $('progressLabel').textContent = 'Prête à commencer ?';
+  $('questionCard').style.setProperty('--q-color-a', '#4FC3C8');
+  $('questionCard').style.setProperty('--q-color-b', '#7F77DD');
+  $('successOverlay').classList.remove('show');
+  const startBtn = document.createElement('button');
+  startBtn.className = 'submit-btn';
+  startBtn.style.width = '100%';
+  startBtn.style.marginTop = '1rem';
+  startBtn.textContent = "C'est parti ! 🚀";
+  startBtn.addEventListener('click', () => {
+    startBtn.remove();
+    $('hintText').style.display = '';
+    $('answerWrap').style.display = '';
+    $('errorMsg').style.display = '';
+    current = 0;
+    loadQuestion(0);
+  });
+  $('questionCard').appendChild(startBtn);
+}
 
   function loadQuestion(idx) {
     const q = questions[idx];
@@ -479,7 +481,7 @@ souviens-toi du code qu'on t'a confié…</p>
 
   $('submitBtn').addEventListener('click', checkAnswer);
   $('answerInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkAnswer(); });
-  loadQuestion(0);
+  showWelcome();
   setTimeout(() => {
   window.scrollTo(0, 0);
 }, 50);
