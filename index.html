@@ -341,9 +341,9 @@
     <span class="riddle-icon" id="riddleIcon">🔍</span>
     <p class="riddle-text" id="riddleText"></p>
     <p class="hint-text" id="hintText"></p>
-    <div class="answer-wrap">
+    <div class="answer-wrap" id="answerWrap">
       <input class="answer-input" id="answerInput" type="text" placeholder="Votre réponse..." autocomplete="off" />
-      <button class="submit-btn" id="submitBtn">Valider</button>
+      <button class="submit-btn" id="submitBtn" style="display:none;">Valider</button>
     </div>
     <div class="error-msg" id="errorMsg"></div>
   </div>
@@ -425,6 +425,7 @@ souviens-toi du code qu'on t'a confié…</p>
     $('hintText').style.display = '';
     $('answerWrap').style.display = '';
     $('errorMsg').style.display = '';
+    $('submitBtn').style.display = '';
     current = 0;
     loadQuestion(0);
   });
